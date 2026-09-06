@@ -49,7 +49,6 @@ const MockAPI = {
 
   async syncNetwork() {
     await this.delay(1200);
-    // Randomize some values to simulate live changing data
     Object.keys(this.db).forEach(k => {
       if(this.db[k].status !== 'Offline') {
         this.db[k].temp += (Math.random() - 0.5) * 0.5;
@@ -74,21 +73,15 @@ const MockAPI = {
   }
 };
 
-/**
- * UI State & Controllers
- */
 let currentStation = 'ALPHA-10';
 let activeView = 'dashboard';
-let pendingModalAction = null;
 
-// Initialization
 document.addEventListener('DOMContentLoaded', async () => {
   populateDatalist();
   await refreshAlertsTable();
   await loadStation(currentStation);
 });
 
-// View Navigation
 function switchView(viewId) {
   document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
   document.getElementById(viewId).classList.add('active');
@@ -103,7 +96,6 @@ function switchView(viewId) {
   activeView = viewId;
 }
 
-// Data Fetching and Rendering
 async function loadStation(id) {
   try {
     const data = await MockAPI.fetchStation(id);
@@ -136,7 +128,7 @@ async function handleSearch() {
   }
 }
 
-// UI Renderers
+// Renders the Station Selector buttons
 async function renderQuickList() {
   const keys = await MockAPI.fetchAllKeys();
   const html = [];
@@ -192,7 +184,6 @@ function renderDiagnostics(s) {
   const dotColor = s.status === 'Critical' ? 'var(--red)' : s.status === 'Warning' ? 'var(--yellow)' : s.status === 'Offline' ? 'var(--muted)' : 'var(--green)';
   document.getElementById('stationStatusDot').style.color = dotColor;
 
-  // Chart
   const max = Math.max(...s.trend), min = Math.min(...s.trend), span = Math.max(1, max-min);
   const pts = s.trend.map((v,i) => [i*(700/(s.trend.length-1)), 250 - ((v-min)/span)*180]);
   const d = pts.map((p,i) => (i?'L':'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
@@ -209,7 +200,7 @@ async function refreshAlertsTable() {
   document.getElementById('criticalBadge').textContent = `${critCount} CRITICAL`;
 
   if(alerts.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px; color:var(--muted)">All clear. No active alerts.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px; color:#ffffff">All clear. No active alerts.</td></tr>';
     return;
   }
 
@@ -220,7 +211,7 @@ async function refreshAlertsTable() {
         <td>${a.id}</td>
         <td>${a.origin}</td>
         <td><span class="badge ${badgeClass}">${a.severity}</span></td>
-        <td>${a.type}<br><small style="color:var(--muted)">${a.desc}</small></td>
+        <td>${a.type}<br><small style="color:#cccccc">${a.desc}</small></td>
         <td>${a.time}</td>
         <td><button onclick="resolveAlert('${a.id}', this)" class="smallbtn" style="margin:0;padding:5px 7px">RESOLVE</button></td>
       </tr>
@@ -228,7 +219,6 @@ async function refreshAlertsTable() {
   }).join('');
 }
 
-// Actions & Interactions
 async function handleSync() {
   const btn = document.getElementById('syncBtn');
   btn.disabled = true;
@@ -279,7 +269,6 @@ function handleAction(type) {
   });
 }
 
-// Utilities
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -295,7 +284,6 @@ function confirmAction(title, text, onConfirm) {
   
   const confirmBtn = document.getElementById('modalConfirmBtn');
   
-  // Clean up previous event listeners by cloning node
   const newBtn = confirmBtn.cloneNode(true);
   confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
   
@@ -318,6 +306,5 @@ async function populateDatalist() {
   document.getElementById('stationList').innerHTML = keys.map(k => `<option value="${k}">`).join('');
 }
 
-// Global listeners
 document.getElementById('modal').addEventListener('click', e => { if(e.target.id === 'modal') closeModal(); });
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });

@@ -59,16 +59,18 @@
         <div class="sub">Live station connectivity and telemetry</div>
         <div class="map" id="map">
           <div class="legend">● ACTIVE &nbsp; <span style="color:#f5bd35">●</span> WARNING &nbsp; <span style="color:#ff3d55">●</span> CRITICAL</div>
-          <div class="node" style="left:28%;top:42%" title="ALPHA-10" onclick="loadStation('ALPHA-10')"></div>
-          <div class="node" style="left:48%;top:55%" title="BETA-07" onclick="loadStation('BETA-07')"></div>
-          <div class="node" style="left:64%;top:35%" title="GAMMA-03" onclick="loadStation('GAMMA-03')"></div>
+          <!-- Updated Nodes to use the white-node class -->
+          <div class="node white-node" style="left:28%;top:42%" title="ALPHA-10" onclick="loadStation('ALPHA-10')"></div>
+          <div class="node white-node" style="left:48%;top:55%" title="BETA-07" onclick="loadStation('BETA-07')"></div>
+          <div class="node white-node" style="left:64%;top:35%" title="GAMMA-03" onclick="loadStation('GAMMA-03')"></div>
           <div class="node warn" style="left:78%;top:62%" title="DELTA-09" onclick="loadStation('DELTA-09')"></div>
           <div class="node bad" style="left:72%;top:78%" title="PHI-OBSERVATORY" onclick="loadStation('PHI-OBSERVATORY')"></div>
           <div class="node off" style="left:39%;top:25%" title="METRO-02" onclick="loadStation('METRO-02')"></div>
+          
           <div class="maplabel" style="left:27%;top:46%">STATION ALPHA-10</div>
           <div class="maplabel" style="left:62%;top:29%">STATION GAMMA-03</div>
           <div class="maplabel" style="left:73%;top:83%">PHI OBSERVATORY</div>
-          <div class="coord">COORD TRACKING<br><b id="mapLat" style="color:#10c7ee">--</b><br><b id="mapLon" style="color:#10c7ee">--</b><br><span id="mapAlt">--</span></div>
+          <div class="coord">COORD TRACKING<br><b id="mapLat" style="color:#ffffff">--</b><br><b id="mapLon" style="color:#ffffff">--</b><br><span id="mapAlt">--</span></div>
         </div>
       </div>
     </div>
@@ -78,14 +80,14 @@
         <div class="title">⌁ NETWORK PERFORMANCE</div><div class="sub">Real-time throughput (Gbps) & latency (ms)</div>
         <div class="chart">
           <svg viewBox="0 0 500 210" preserveAspectRatio="none">
-            <defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0db9df" stop-opacity=".38"/><stop offset="1" stop-color="#0db9df" stop-opacity="0"/></linearGradient></defs>
+            <defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".38"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>
             <path id="throughputArea" d="M0 92 C55 86,85 90,120 88 S165 145,205 130 S255 75,300 92 S355 65,410 74 S460 60,500 78 L500 210 L0 210Z" fill="url(#area)"/>
-            <path id="throughputLine" d="M0 92 C55 86,85 90,120 88 S165 145,205 130 S255 75,300 92 S355 65,410 74 S460 60,500 78" fill="none" stroke="#10c7ee" stroke-width="3"/>
+            <path id="throughputLine" d="M0 92 C55 86,85 90,120 88 S165 145,205 130 S255 75,300 92 S355 65,410 74 S460 60,500 78" fill="none" stroke="#ffffff" stroke-width="3"/>
           </svg><div class="tip">THROUGHPUT</div>
         </div>
         <div class="bars">
-          <div class="barrow">STORAGE UTILIZATION <b id="storageValue" style="float:right;color:#b9c5d3">--%</b><div class="bar"><div class="fill" id="storageFill" style="width:0%"></div></div></div>
-          <div class="barrow">COMPUTE LOAD (AI CORE) <b id="computeValue" style="float:right;color:#b9c5d3">--%</b><div class="bar"><div class="fill" id="computeFill" style="width:0%"></div></div></div>
+          <div class="barrow">STORAGE UTILIZATION <b id="storageValue" style="float:right;color:#ffffff">--%</b><div class="bar"><div class="fill" id="storageFill" style="width:0%"></div></div></div>
+          <div class="barrow">COMPUTE LOAD (AI CORE) <b id="computeValue" style="float:right;color:#ffffff">--%</b><div class="bar"><div class="fill" id="computeFill" style="width:0%"></div></div></div>
         </div>
         <button class="smallbtn" id="syncBtn" onclick="handleSync()">⟳ &nbsp; SYNCHRONIZE FLEET</button>
       </div>
@@ -104,7 +106,7 @@
 
 <!-- STATION DIAGNOSTICS VIEW -->
 <section class="page view-section" id="diagnostics">
-  <div class="station-statusbar"><span id="stationStatusDot">●</span> <b id="stationStatusLabel">LIVE TELEMETRY</b><span id="stationStatusDetail">Streaming from edge node</span></div>
+  <div class="station-statusbar"><span id="stationStatusDot" style="color:white">●</span> <b id="stationStatusLabel" style="color:white">LIVE TELEMETRY</b><span id="stationStatusDetail">Streaming from edge node</span></div>
   <div class="station-head">
     <button class="back" onclick="switchView('dashboard')">← Dashboard</button>
     <div><h2 id="stationName">Select a Station</h2><div class="sub" id="stationMeta">--</div></div>
@@ -125,16 +127,16 @@
     <div class="card panel">
       <div class="title">⌁ TELEMETRY TRENDS</div><div class="sub">Real-time sensor data visualization</div>
       <div class="chart" style="height:300px"><svg viewBox="0 0 700 300" preserveAspectRatio="none">
-        <defs><linearGradient id="a2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#10c7ee" stop-opacity=".4"/><stop offset="1" stop-color="#10c7ee" stop-opacity="0"/></linearGradient></defs>
+        <defs><linearGradient id="a2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".4"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>
         <path id="telemetryArea" d="" fill="url(#a2)"/>
-        <path id="telemetryLine" d="" fill="none" stroke="#10c7ee" stroke-width="3"/>
+        <path id="telemetryLine" d="" fill="none" stroke="#ffffff" stroke-width="3"/>
         <path d="M0 85 H700" stroke="#ff3d55" stroke-dasharray="5 7" opacity=".7"/>
       </svg></div>
     </div>
 
     <div class="card panel">
       <div class="title">⌁ AI CORRECTION MATRIX</div><div class="sub">Estimated values based on network consensus</div>
-      <div style="margin-top:20px;font-size:10px;color:#7d8da0">PREDICTED TEMPERATURE <b id="predictionStatus" style="float:right;color:#dbe7ef">--</b></div>
+      <div style="margin-top:20px;font-size:10px;color:#7d8da0">PREDICTED TEMPERATURE <b id="predictionStatus" style="float:right;color:#ffffff">--</b></div>
       <div class="value" style="font-size:25px;margin-top:8px" id="predictedTemp">--<span class="unit">°C</span></div>
       <div class="sub" style="margin-top:7px">AI model comparison against localized edge parameters.</div>
       <button class="smallbtn" onclick="applyAICorrection()" id="aiBtn">APPLY AI CORRECTION</button>
